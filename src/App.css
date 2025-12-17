@@ -4,6 +4,7 @@
   padding: 20px;
   text-align: center;
   min-height: 100vh;
+  col
 }
 
 @media (max-width: 768px) {
@@ -128,36 +129,46 @@ h1 {
 
 .scanned-data h2 {
   color: #000;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   text-align: center;
 }
 
-.scanned-data p {
+.info-row {
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 6px;
   padding: 12px 15px;
   margin-bottom: 12px;
-  color: #000;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 10px;
+  align-items: start;
 }
 
-.scanned-data b {
-  color: #000;
+@media (max-width: 768px) {
+  .info-row {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+}
+
+.info-row strong {
+  color: #646cff;
   font-weight: 600;
 }
 
-.address-section {
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 12px 15px;
-  margin-bottom: 12px;
+.info-row span {
+  color: #000;
 }
 
-.address-section p {
-  padding: 0;
-  margin: 0 0 8px 0;
-  border: none;
+.address-row {
+  grid-template-columns: 150px 1fr;
+}
+
+@media (max-width: 768px) {
+  .address-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 .address-content {
@@ -165,11 +176,11 @@ h1 {
   line-height: 1.6;
 }
 
-.scanned-data details {
+.raw-data-details {
   margin: 20px 0;
 }
 
-.scanned-data summary {
+.raw-data-details summary {
   cursor: pointer;
   padding: 10px;
   background: #646cff;
@@ -179,8 +190,13 @@ h1 {
   font-weight: bold;
 }
 
-.scanned-data pre {
+.raw-data-details summary:hover {
+  background: #535bf2;
+}
+
+.raw-data-details pre {
   background-color: #f5f5f5;
+  border: 1px solid #ddd;
   padding: 15px;
   border-radius: 6px;
   overflow-x: auto;
@@ -189,15 +205,26 @@ h1 {
   word-wrap: break-word;
   max-height: 300px;
   overflow-y: auto;
+  color: #333;
 }
 
-.scanned-data button {
+.scan-again-btn {
   display: block;
   margin: 25px auto 0;
   padding: 12px 30px;
   background-color: #646cff;
   color: white;
   border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.scan-again-btn:hover {
+  background-color: #535bf2;
+}
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;

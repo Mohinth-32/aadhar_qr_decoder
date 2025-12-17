@@ -151,17 +151,48 @@ function App() {
 
       {scannedData && (
         <div className="scanned-data">
-          <h2>Aadhaar Information</h2>
+          <h2>✅ Aadhaar Information</h2>
 
-          {scannedData.uid && <p><b>Aadhaar Number:</b> {scannedData.uid}</p>}
-          {scannedData.name && <p><b>Name:</b> {scannedData.name}</p>}
-          {scannedData.careOf && <p><b>Care Of:</b> {scannedData.careOf}</p>}
-          {scannedData.dateOfBirth && <p><b>Date of Birth:</b> {scannedData.dateOfBirth}</p>}
-          {scannedData.gender && <p><b>Gender:</b> {scannedData.gender}</p>}
+          {scannedData.uid && (
+            <div className="info-row">
+              <strong>Aadhaar Number:</strong>
+              <span>{scannedData.uid}</span>
+            </div>
+          )}
           
-          {(scannedData.building || scannedData.street || scannedData.landmark || scannedData.locality || scannedData.vtcName || scannedData.poName) && (
-            <div className="address-section">
-              <p><b>Address:</b></p>
+          {scannedData.name && scannedData.name !== 'N/A' && (
+            <div className="info-row">
+              <strong>Name:</strong>
+              <span>{scannedData.name}</span>
+            </div>
+          )}
+          
+          {scannedData.careOf && (
+            <div className="info-row">
+              <strong>Care Of:</strong>
+              <span>{scannedData.careOf}</span>
+            </div>
+          )}
+          
+          {scannedData.dateOfBirth && (
+            <div className="info-row">
+              <strong>Date of Birth:</strong>
+              <span>{scannedData.dateOfBirth}</span>
+            </div>
+          )}
+          
+          {scannedData.gender && (
+            <div className="info-row">
+              <strong>Gender:</strong>
+              <span>{scannedData.gender}</span>
+            </div>
+          )}
+          
+          {(scannedData.building || scannedData.street || scannedData.landmark || 
+            scannedData.locality || scannedData.vtcName || scannedData.poName || 
+            scannedData.districtName || scannedData.stateName || scannedData.pincode) && (
+            <div className="info-row address-row">
+              <strong>Address:</strong>
               <div className="address-content">
                 {scannedData.building && <span>{scannedData.building}, </span>}
                 {scannedData.street && <span>{scannedData.street}, </span>}
@@ -170,22 +201,31 @@ function App() {
                 {scannedData.vtcName && <span>{scannedData.vtcName}, </span>}
                 {scannedData.poName && <span>{scannedData.poName}, </span>}
                 {scannedData.districtName && <span>{scannedData.districtName}, </span>}
-                {scannedData.stateName && <span>{scannedData.stateName} - </span>}
-                {scannedData.pincode && <span>{scannedData.pincode}</span>}
+                {scannedData.stateName && <span>{scannedData.stateName}</span>}
+                {scannedData.pincode && <span> - {scannedData.pincode}</span>}
               </div>
             </div>
           )}
           
           {scannedData.address && !scannedData.building && (
-            <p><b>Address:</b> {scannedData.address}</p>
+            <div className="info-row">
+              <strong>Address:</strong>
+              <span>{scannedData.address}</span>
+            </div>
           )}
 
-          <details>
+          {scannedData.parseError && (
+            <div className="error-message">
+              <p>⚠️ Parse Error: {scannedData.parseError}</p>
+            </div>
+          )}
+
+          <details className="raw-data-details">
             <summary>View Raw QR Data</summary>
             <pre>{scannedData.rawData}</pre>
           </details>
 
-          <button onClick={startScanning}>Scan Another Aadhaar QR</button>
+          <button onClick={startScanning} className="scan-again-btn">Scan Another QR Code</button>
         </div>
       )}
     </div>
