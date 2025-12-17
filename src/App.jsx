@@ -12,11 +12,37 @@ function App() {
 
   const parseAadhaarQR = (qrData) => {
     try {
-      // Aadhaar Secure QR is encrypted → show raw for now
+      // Parse XML format from Aadhaar QR
       if (qrData.startsWith('<?xml')) {
-        return { rawData: qrData }
+        const parser = new DOMParser()
+        const xmlDoc = parser.parseFromString(qrData, 'text/xml')
+        const barcodeData = xmlDoc.getElementsByTagName('PrintLetterBarcodeData')[0]
+        
+        if (barcodeData) {
+          const uid = barcodeData.getAttribute('uid') || ''
+          const maskedUid = uid ? `XXXX XXXX ${uid.slice(-4)}` : 'N/A'
+          
+          return {
+            uid: maskedUid,
+            name: barcodeData.getAttribute('name') || 'N/A',
+            careOf: barcodeData.getAttribute('careOf') || barcodeData.getAttribute('co') || '',
+            building: barcodeData.getAttribute('building') || barcodeData.getAttribute('house') || '',
+            street: barcodeData.getAttribute('street') || '',
+            landmark: barcodeData.getAttribute('landmark') || barcodeData.getAttribute('lm') || '',
+            locality: barcodeData.getAttribute('locality') || barcodeData.getAttribute('loc') || '',
+            vtcName: barcodeData.getAttribute('vtcName') || barcodeData.getAttribute('vtc') || '',
+            poName: barcodeData.getAttribute('poName') || barcodeData.getAttribute('po') || '',
+            districtName: barcodeData.getAttribute('districtName') || barcodeData.getAttribute('dist') || '',
+            stateName: barcodeData.getAttribute('stateName') || barcodeData.getAttribute('state') || '',
+            pincode: barcodeData.getAttribute('pincode') || barcodeData.getAttribute('pc') || '',
+            dateOfBirth: barcodeData.getAttribute('dob') || barcodeData.getAttribute('yob') || '',
+            gender: barcodeData.getAttribute('gender') || '',
+            rawData: qrData,
+          }
+        }
       }
 
+      // Parse delimited format
       const delimiter = qrData.includes('|')
         ? '|'
         : qrData.includes(',')
@@ -125,19 +151,41 @@ function App() {
 
       {scannedData && (
         <div className="scanned-data">
-          <h2>Scanned Data</h2>
+          <h2>Aadhaar Information</h2>
 
+          {scannedData.uid && <p><b>Aadhaar Number:</b> {scannedData.uid}</p>}
           {scannedData.name && <p><b>Name:</b> {scannedData.name}</p>}
-          {scannedData.dateOfBirth && <p><b>DOB:</b> {scannedData.dateOfBirth}</p>}
+          {scannedData.careOf && <p><b>Care Of:</b> {scannedData.careOf}</p>}
+          {scannedData.dateOfBirth && <p><b>Date of Birth:</b> {scannedData.dateOfBirth}</p>}
           {scannedData.gender && <p><b>Gender:</b> {scannedData.gender}</p>}
-          {scannedData.address && <p><b>Address:</b> {scannedData.address}</p>}
+          
+          {(scannedData.building || scannedData.street || scannedData.landmark || scannedData.locality || scannedData.vtcName || scannedData.poName) && (
+            <div className="address-section">
+              <p><b>Address:</b></p>
+              <div className="address-content">
+                {scannedData.building && <span>{scannedData.building}, </span>}
+                {scannedData.street && <span>{scannedData.street}, </span>}
+                {scannedData.landmark && <span>{scannedData.landmark}, </span>}
+                {scannedData.locality && <span>{scannedData.locality}, </span>}
+                {scannedData.vtcName && <span>{scannedData.vtcName}, </span>}
+                {scannedData.poName && <span>{scannedData.poName}, </span>}
+                {scannedData.districtName && <span>{scannedData.districtName}, </span>}
+                {scannedData.stateName && <span>{scannedData.stateName} - </span>}
+                {scannedData.pincode && <span>{scannedData.pincode}</span>}
+              </div>
+            </div>
+          )}
+          
+          {scannedData.address && !scannedData.building && (
+            <p><b>Address:</b> {scannedData.address}</p>
+          )}
 
           <details>
-            <summary>Raw QR Data</summary>
+            <summary>View Raw QR Data</summary>
             <pre>{scannedData.rawData}</pre>
           </details>
 
-          <button onClick={startScanning}>Scan Again</button>
+          <button onClick={startScanning}>Scan Another Aadhaar QR</button>
         </div>
       )}
     </div>

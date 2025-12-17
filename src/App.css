@@ -13,7 +13,7 @@
 }
 
 h1 {
-  color: #333;
+  color: #000;
   margin-bottom: 30px;
 }
 
@@ -127,7 +127,7 @@ h1 {
 }
 
 .scanned-data h2 {
-  color: #646cff;
+  color: #000;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -138,6 +138,31 @@ h1 {
   border-radius: 6px;
   padding: 12px 15px;
   margin-bottom: 12px;
+  color: #000;
+}
+
+.scanned-data b {
+  color: #000;
+  font-weight: 600;
+}
+
+.address-section {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 12px 15px;
+  margin-bottom: 12px;
+}
+
+.address-section p {
+  padding: 0;
+  margin: 0 0 8px 0;
+  border: none;
+}
+
+.address-content {
+  color: #000;
+  line-height: 1.6;
 }
 
 .scanned-data details {
