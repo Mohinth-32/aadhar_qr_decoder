@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
 
-  "homepage": "https://Mohinth-32.github.io/aadhar_qr_decoder",
+  "homepage": "https://mohinth-32.github.io/aadhar_qr_decoder",
 
   "scripts": {
     "dev": "vite",
