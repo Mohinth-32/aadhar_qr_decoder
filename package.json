@@ -3,9 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-
   "homepage": "https://mohinth-32.github.io/aadhar_qr_decoder",
-
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -14,13 +12,12 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-
   "dependencies": {
     "html5-qrcode": "^2.3.8",
+    "qr-scanner": "^1.4.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
-
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@types/react": "^19.2.5",
