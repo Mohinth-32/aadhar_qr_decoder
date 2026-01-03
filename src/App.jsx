@@ -1,8 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import QrScanner from 'qr-scanner'
 import './App.css'
+import { trackPageView } from './tracking.js'
 
 function App() {
+
+
+  useEffect(() => {
+    // Track page view after component mounts
+    trackPageView();
+  }, []);
   const videoRef = useRef(null)
   const scannerRef = useRef(null)
 
