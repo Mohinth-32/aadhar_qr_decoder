@@ -1,6 +1,6 @@
-# Aadhaar QR Scanner & Decoder
+# Aadhaar QR Decoder (only supports legacy Aadhaar QR codes issued before 2018 👉👈)
 
-A web-based application that scans and decodes **Aadhaar Secure QR Codes** to extract user details instantly and accurately. This project focuses on **fast verification**, **privacy**, and **offline QR decoding** without relying on external APIs.
+A web-based application that scans and decodes **Aadhaar QR Codes** to extract user details instantly and accurately.
 
 ---
 
@@ -42,4 +42,5 @@ This system helps eliminate **manual data entry**, reduces **verification time**
 
 ---
 Link -> https://mohinth-32.github.io/aadhar_qr_decoder/
+
 
